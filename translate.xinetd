@@ -1,0 +1,13 @@
+#network service using TCP protocol over port 6001
+service translateservice
+{
+	flags		= REUSE
+        disable         = no
+        socket_type     = stream
+        protocol        = tcp
+        server          = /usr/Trans/translate
+        user            = nobody
+        instances       = UNLIMITED
+        wait            = no
+        
+}
