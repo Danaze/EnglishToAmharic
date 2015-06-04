@@ -1,0 +1,28 @@
+#!/bin/sh
+#shell script for a word translation tool
+#The script is used to translate from English to Amharic
+#the words that are supported by the tool are according to a swadesh dictionary
+#link for list of words in swadesh Amaharic:
+#http://en.wiktionary.org/wiki/Appendix:Amharic_Swadesh_list
+#-------------------------------------------------------------
+#prompt the user to enter a word in English for translation
+echo "Please enter a word in English for translation to Amharic:"
+#Take the input string/word from the user and store it in a variable called word
+read word
+#using grep to look for a pattern in the list using the word that is given from #the user
+#the grep will scan through a file containing in English swadesh dictionary list
+#-i is used for case insensitivity, -w for exact word matching and -n to retriev#e line number
+#the sed is used to cutout the numeric part of the grep operation
+#the result of the expression is stored in a variable called line
+line=$(grep -i -w -n $word /usr/Trans/100en | sed -n 's/^\([0-9]*\)[:].*/\1/p')
+#grep is again done for a pattern in a file containing swadesh Amharic dictionary
+#the result is assigned to a variable called amharic
+amharic=$(grep -i -w $line /usr/Trans/100amh)
+#it is used for displaying only the result after the pipe (|)
+amh=${amharic##*|}
+#finally the result is displayed to the user
+echo $amh
+
+echo "press enter to terminate"
+read
+#-----------------------------------------------------------------------------

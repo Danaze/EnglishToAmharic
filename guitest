@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+scp /usr/Trans/translategui test@localhost:/var/guinew

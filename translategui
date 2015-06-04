@@ -1,0 +1,19 @@
+#!/bin/sh
+#English to Amharic translator tool
+#words are according to the swadesh list of 207 words
+#this is the GUI implementation of the translator using Zenity
+#the grep operations are done for the same purpose explained in the translate script
+#------------------------------------------------------------------------------
+#zenity asks the user to give an input word in English
+#the input from the user is stored in a variable called eng
+eng=$(zenity --entry --title="English to Amharic translator tool" --text="Please enter a word to be translated to Amharic")
+#grep operation performed to retireve the line number for a pattern match of the input word
+#the result is written to a variable called line which catains the line number of the word
+line=$(grep -i -w -n $eng /usr/Trans/100en |sed -n 's/^\([0-9]*\)[:].*/\1/p')
+#grep looks for a pattern using line number as a key in the amharic dictionary
+amharic=$(grep -i -w $line /usr/Trans/100amh)
+#anything before pipe(|) is removed from the final display
+amh=${amharic##*|} 
+#the final translation is displayed by zenity to the user
+zenity --info --text "The translation of the word in Amharic is $amh"
+#---------------------------------------------------------------------------
