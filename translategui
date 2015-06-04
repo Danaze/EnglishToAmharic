@@ -11,9 +11,13 @@ eng=$(zenity --entry --title="English to Amharic translator tool" --text="Please
 #the result is written to a variable called line which catains the line number of the word
 line=$(grep -i -w -n $eng /usr/Trans/100en |sed -n 's/^\([0-9]*\)[:].*/\1/p')
 #grep looks for a pattern using line number as a key in the amharic dictionary
-amharic=$(grep -i -w $line /usr/Trans/100amh)
-#anything before pipe(|) is removed from the final display
-amh=${amharic##*|} 
-#the final translation is displayed by zenity to the user
-zenity --info --text "The translation of the word in Amharic is $amh"
+if [[ $line -ne 0 ]]; then
+	amharic=$(grep -i -w $line /usr/Trans/100amh)
+	#anything before pipe(|) is removed from the final display
+	amh=${amharic##*|} 
+	#the final translation is displayed by zenity to the user
+	zenity --info --text "The translation of the word in Amharic is $amh"
+else
+	zenity --info --text "the word is not found in the dictionary"
+fi
 #---------------------------------------------------------------------------
