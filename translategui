@@ -1,7 +1,0 @@
-!#bin/sh
-eng=$(zenity --entry --text "enter a word to be translated to amharic")
-line=$(grep -i -w -n $eng 100en |sed -n 's/^\([0-9]*\)[:].*/\1/p')
-amharic=$(grep -i -w $line 100amh)
-amh=${amharic##*|} 
-zenity --info --text "The Amharic version is $amh"
-
