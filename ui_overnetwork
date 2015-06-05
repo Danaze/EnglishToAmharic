@@ -1,0 +1,24 @@
+#!/usr/bin/expect
+#network service for GUI execution
+#
+#expect script for copying a file to be executed
+set timeout 0
+#create a spawn execution to copy file remotely using telnet
+spawn telnet localhost 
+#an expect script that provides auotmaticaly test for user name and password "qwerty"
+expect "login: "
+send "test\r"
+expect "Password: "
+send "qwerty\r"
+expect "bash-4.1$"
+send "scp /usr/Trans/translate_ui test@localhost:/var/guinew\r"
+expect "test@localhost's password:"
+send "qwerty\r"
+expect "bash-4.1$"
+send "exit\r"
+#exiting telnet and beginning another spawn
+spawn /var/./guinew 
+interact
+spawn rm -f /var/guinew 
+interact
+#spawn /var/./guinew\r
