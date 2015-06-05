@@ -15,16 +15,16 @@ read word
 #-i is used for case insensitivity, -w for exact word matching and -n to retriev#e line number
 #the sed is used to cutout the numeric part of the grep operation
 #the result of the expression is stored in a variable called line
-line=$(grep -i -w -n $word /usr/Trans/100en | sed -n 's/^\([0-9]*\)[:].*/\1/p')
+line=$(grep -i -w -n $word /usr/Trans/207en | sed -n 's/^\([0-9]*\)[:].*/\1/p')
 #grep is again done for a pattern in a file containing swadesh Amharic dictionary
 #the result is assigned to a variable called amharic
 
 if [[ $line -gt 0 ]]; then
-	amharic=$(grep -i -w $line /usr/Trans/100amh)
+	amharic=$(grep -i -w $line /usr/Trans/207amh)
 	#it is used for displaying only the result after the pipe (|)
 	amh=${amharic##*|}
 	#finally the result is displayed to the user
-	echo $amh
+	echo "The amharic translation is: $amh"
 else
 	echo "the entered word is not in the dictionary"
 fi
